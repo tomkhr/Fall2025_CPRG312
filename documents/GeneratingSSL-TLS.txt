@@ -1,0 +1,6 @@
+How to generate a self signed SSL/TLS certificate
+https://dev.to/techschoolguru/how-to-create-sign-ssl-tls-certificates-2aai
+
+
+Installing OpenSSL on windows
+https://www.xolphin.com/support/OpenSSL/OpenSSL_-_Installation_under_Windows

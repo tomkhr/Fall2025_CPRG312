@@ -1,0 +1,13 @@
+import { Link } from 'react-router-dom';
+function Home() {
+    return (
+        <main>
+            <h1>Home</h1>
+            <nav>
+                <Link className='btn' to="/caching_demo">Caching Demo</Link>
+            </nav>
+        </main>
+    );
+}
+
+export default Home;
