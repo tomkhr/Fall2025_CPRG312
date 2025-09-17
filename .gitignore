@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 # Certificate folder
 cert/
+
+*node_modules/
