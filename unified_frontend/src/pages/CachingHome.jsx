@@ -10,6 +10,7 @@ function CachingHome() {
     const [heading, setHeading] = useState('');
     const [body, setBody] = useState([]);
     const [pageImage, setPageImage] = useState({});
+    const [error, setError] = useState({isError: false});
 
 
     useEffect(() => {
@@ -18,6 +19,11 @@ function CachingHome() {
             if(response.ok) {
                 return response.json();
             } else {
+                const err = {
+                    isError: true,
+                    message:"Server Response Not Okay!!"
+                }
+                setError(err);
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
         })
@@ -27,13 +33,19 @@ function CachingHome() {
             setPageImage(data.img)
             
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+            const err = {
+                isError: true,
+                message: "Check If Server Is Running!!!"
+            }
+            setError(err);
+            console.error(error) 
+        });
     }, []);
 
     return (
         <main>
-            <HomeBtn />
-            <h1>{heading}</h1>
+            <h1>{heading? heading: "Caching Demo"}</h1>
             <section>
                 {
                     body.length>0 && 
@@ -43,6 +55,8 @@ function CachingHome() {
                     <img src={pageImage.url} alt={pageImage.alt} />
                 </div>
             </section>
+
+            {error.isError && <p className='error-txt'>{error.message}</p>}
 
         </main>
     );
