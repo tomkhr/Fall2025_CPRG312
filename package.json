@@ -1,14 +1,23 @@
 {
-  "name": "password_lab",
+  "name": "fall2025_cprg312",
   "version": "1.0.0",
+  "description": "**This repository contains code examples we do in class.**",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomkhr/Fall2025_CPRG312.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tomkhr/Fall2025_CPRG312/issues"
+  },
+  "homepage": "https://github.com/tomkhr/Fall2025_CPRG312#readme",
   "dependencies": {
     "argon2": "^0.44.0",
     "body-parser": "^2.2.0",
