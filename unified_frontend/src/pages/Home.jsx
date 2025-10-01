@@ -6,6 +6,7 @@ function Home() {
             <nav>
                 <Link className='btn' to="/caching_demo">Caching Demo</Link>
                 <Link className='btn' to="/password_hashing_demo/login">Password Hashing Demo</Link>
+                <Link className='btn' to="/rbac/login">RBAC Demo</Link>
             </nav>
         </main>
     );

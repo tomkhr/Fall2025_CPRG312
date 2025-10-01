@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function RegisterUserForm() {
-    const defaultUser = {
-            email: "",
-            password: "",
-            name: "",
-        }
+function RegisterUser() {
+    
 
     const navigate = useNavigate();
     
@@ -16,7 +12,21 @@ function RegisterUserForm() {
         SUCCESS: 2,
         FAILED: 3,
     })
+
+    const UserRoleValues = Object.freeze({
+        MANAGER: 'manager',
+        DEV: 'dev',
+        TEST: 'test',
+        INTERN: 'intern'
+    })
         
+    const defaultUser = {
+            email: "",
+            password: "",
+            name: "",
+            role: UserRoleValues.INTERN,
+        }
+    
     const style = {
         formitem: {
             'display': 'flex',
@@ -31,7 +41,16 @@ function RegisterUserForm() {
             'justify-content': 'center',
             'gap': '10px',
             'align-items': 'center',
-        }
+        },
+        roleTitle: {
+            'fontSize': '1.3rem',
+            'fontWeight': '600',
+        },
+        roleDiv: {
+            'display': 'flex',
+            'gap': '15px',
+            'justify-content': 'flex-end',
+        },
     }
     const [user, setUser] = useState(defaultUser);
     const [state, setState] = useState(RegistrationState.INIT);
@@ -48,6 +67,12 @@ function RegisterUserForm() {
             case 'password-input':
                 updatedUser.password = event.target.value.trim()
                 break;
+            case 'role-manager':
+            case 'role-dev':
+            case 'role-test':
+            case 'role-intern':
+                updatedUser.role = event.target.value;
+                break;
         }
         setUser(updatedUser);
     }
@@ -57,6 +82,7 @@ function RegisterUserForm() {
             alert("Please fill all the details!!!")
             return;
         }
+        alert(`name: ${user.name}, email: ${user.email}, password: ${user.password}, role: ${user.role}`);
         const requestOpt = {
             method: 'POST',
             headers: {
@@ -68,7 +94,7 @@ function RegisterUserForm() {
             // console.log(requestOpt)
             setState(RegistrationState.PROCESSING);
             const response = await fetch(
-                "http://localhost:3001/api/auth/register",
+                "http://localhost:3000/api/auth/register",
                 requestOpt
             )
             if(!response.ok) {
@@ -87,7 +113,7 @@ function RegisterUserForm() {
             console.error(error);
             setState(RegistrationState.FAILED);
         }
-        // alert(`name: ${user.name}, email: ${user.email}, password: ${user.password}`);
+        alert(`name: ${user.name}, email: ${user.email}, password: ${user.password}, role: ${user.role}`);
         resetForm();
     }
     
@@ -135,8 +161,55 @@ function RegisterUserForm() {
                     onChange={handleInput}
                     />
                 </div>
+                <p style={style.roleTitle}>Role:</p>
+                <div id="role-div" style={style.roleDiv}>
+                    <div>
+                        <input 
+                        type="radio" 
+                        id="role-manager" 
+                        name="dept"
+                        value={UserRoleValues.MANAGER}
+                        checked={user.role==UserRoleValues.MANAGER}
+                        onChange={handleInput}
+                        />
+                        <label htmlFor="role-manager"> Manager</label>
+                    </div>
+                    <div>
+                        <input 
+                        type="radio" 
+                        id="role-dev" 
+                        name="dept"
+                        value={UserRoleValues.DEV}
+                        checked={user.role==UserRoleValues.DEV}
+                        onChange={handleInput}
+                        />
+                        <label htmlFor="role-manager"> Developer</label>
+                    </div>
+                    <div>
+                        <input 
+                        type="radio" 
+                        id="role-test" 
+                        name="dept"
+                        value={UserRoleValues.TEST}
+                        checked={user.role==UserRoleValues.TEST}
+                        onChange={handleInput}
+                        />
+                        <label htmlFor="role-manager"> QA</label>
+                    </div>
+                    <div>
+                        <input 
+                        type="radio" 
+                        id="role-intern" 
+                        name="dept"
+                        value={UserRoleValues.INTERN}
+                        checked={user.role==UserRoleValues.INTERN}
+                        onChange={handleInput}
+                        />
+                        <label htmlFor="role-manager"> Intern</label>
+                    </div>
+                </div>
                 <div className="formitem form-btn-area">
-                    <p style={{'align-self': 'flex-end'}} className="btn btn-secondary" onClick={() => navigate("/password_hashing_demo/login")}>Login</p>
+                    <p style={{'align-self': 'flex-end'}} className="btn btn-secondary" onClick={() => navigate("/rbac/login")}>Login</p>
                     <p style={{'align-self': 'flex-end'}} className="btn" onClick={handleFormSubmit}>Submit</p>
                 </div>
             </form>
@@ -147,11 +220,11 @@ function RegisterUserForm() {
         </section>,
         <section>
             <p>User Registered Successfully !!!</p>
-            <p style={{'align-self': 'flex-end'}} className="btn btn-secondary" onClick={() => navigate("/password_hashing_demo/login")}>Login</p>
+            <p style={{'alignSelf': 'flex-end'}} className="btn btn-secondary" onClick={() => navigate("/rbac/login")}>Login</p>
         </section>,
         <section>
             <p>Error while registering !!! Please try again</p>
-            <p style={{'align-self': 'flex-end'}} className="btn btn-secondary" onClick={() => setState(RegistrationState.INIT)}>Retry</p>
+            <p style={{'alignSelf': 'flex-end'}} className="btn btn-secondary" onClick={() => {setState(RegistrationState.INIT)}}>Retry</p>
         </section>
 
     ]
@@ -160,4 +233,4 @@ function RegisterUserForm() {
     );
 }
 
-export default RegisterUserForm;
+export default RegisterUser;

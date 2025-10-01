@@ -6,6 +6,9 @@ import PasswordHashing from './pages/PasswordHashing';
 import HomeBtn from './components/HomeBtn';
 import LoginUser from './components/passwordLab/LoginUser';
 import RegisterUserForm from './components/passwordLab/RegisterUserForm';
+import Rbac from './pages/Rbac';
+import Login from './components/rbacLab/Login';
+import RegisterUser from './components/rbacLab/RegisterUser';
 
 function App() {
 
@@ -20,6 +23,10 @@ function App() {
           <Route path='/password_hashing_demo' element={<PasswordHashing/>}>
             <Route path='/password_hashing_demo/login' element={<LoginUser/>} />
             <Route path='/password_hashing_demo/register' element={<RegisterUserForm/>} />
+          </Route>
+          <Route path='rbac' element={<Rbac/>}>
+            <Route path='/rbac/login' element={<Login/>}/>
+             <Route path='/rbac/register' element={<RegisterUser/>} />
           </Route>
         </Routes>
       </Router>
